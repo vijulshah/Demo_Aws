@@ -18,7 +18,8 @@ Parameters:
   TestLayer:
     Type: String
     Default: arn:aws:lambda:ap-south-1:414490050401:layer:TestLayer:1
-    
+
+# ------------------- PART 2 ----------------------------  
 Globals:
   # Funciton's Configuration - Timeout, Runtime, Env Variables, 
   Function:
