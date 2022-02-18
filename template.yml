@@ -9,7 +9,7 @@ Parameters:
   # API Access Role
   DemoApiAccess:
     Type: String
-    Default: arn:aws:iam::414490050401:role/VijulArtAPIAccessGlobal
+    Default: arn:aws:iam::414490050401:role/DemoApiAccess
 
   StackName:
     Type: String
@@ -17,7 +17,7 @@ Parameters:
 
   TestLayer:
     Type: String
-    Default: arn:aws:lambda:ap-south-1:414490050401:layer:JwtTokenLayer:1
+    Default: arn:aws:lambda:ap-south-1:414490050401:layer:TestLayer:1
     
 Globals:
   # Funciton's Configuration - Timeout, Runtime, Env Variables, 
