@@ -13,7 +13,7 @@ Parameters:
 
   StackName:
     Type: String
-    Default: TestBKLogin
+    Default: DemoAWS
 
   TestLayer:
     Type: String
