@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Vijul Art Project Login Backend APIs
+
+# ------------------- PART 1 ----------------------------
+# Reference Parameters
+Parameters:
+
+  # API Access Role
+  DemoApiAccess:
+    Type: String
+    Default: arn:aws:iam::414490050401:role/VijulArtAPIAccessGlobal
+
+  StackName:
+    Type: String
+    Default: TestBKLogin
+
+  TestLayer:
+    Type: String
+    Default: arn:aws:lambda:ap-south-1:414490050401:layer:JwtTokenLayer:1
+    
+Globals:
+  # Funciton's Configuration - Timeout, Runtime, Env Variables, 
+  Function:
+    Timeout: 3
+    Runtime: python3.8
+
+# ------------------- PART 3 ----------------------------
+# All Resources. i.e API & Lambda Configurations
+Resources:
+
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      Variables:
+        project_name: demo_aws
+      Cors:
+        AllowHeaders: "'Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Origin'"
+        AllowOrigin: "'*'"
+        MaxAge: "'3600'"
+        AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
+
+  userLoginFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      AutoPublishAlias: live
+      CodeUri: ./
+      Handler: userLogin.lambda_handler
+      FunctionName: userLogin
+      Description: To Login User
+      Role: !Ref VijulArtAPIAccess
+      # To add specific env variable or layer other than layers defined globally
+      # Environment:
+      #   Variables:
+      #     PARAM_NAME: !Ref EnvParamConfig
+      # Layers:
+      #   - !Ref TestLayer
+      Events:
+        PostResource:
+          Type: Api
+          Properties:
+            Path: /user-login
+            Method: POST
+            RestApiId: !Ref Api 
